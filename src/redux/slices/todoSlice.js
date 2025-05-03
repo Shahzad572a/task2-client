@@ -12,7 +12,7 @@ const initialState = {
 // Fetch all todos
 export const fetchTodos = createAsyncThunk('todos/fetchTodos', async (_, thunkAPI) => {
   try {
-    const res = await axios.get(`${process.env.REACT_APP_API_URL}/todos`, {
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/todos`, {
       headers: { Authorization: `Bearer ${token()}` },
     });
     return res.data;
@@ -25,7 +25,7 @@ export const fetchTodos = createAsyncThunk('todos/fetchTodos', async (_, thunkAP
 export const addTodo = createAsyncThunk('todos/addTodo', async (text, thunkAPI) => {
   try {
     const res = await axios.post(
-      `${process.env.REACT_APP_API_URL}/todos`,
+      `${import.meta.env.VITE_API_URL}/todos`,
       { text },
       {
         headers: { Authorization: `Bearer ${token()}` },
@@ -41,7 +41,7 @@ export const addTodo = createAsyncThunk('todos/addTodo', async (text, thunkAPI) 
 export const toggleTodo = createAsyncThunk('todos/toggleTodo', async ({ id, completed }, thunkAPI) => {
   try {
     const res = await axios.put(
-      `${process.env.REACT_APP_API_URL}/todos/${id}`,
+      `${import.meta.env.VITE_API_URL}/todos/${id}`,
       { completed },
       {
         headers: { Authorization: `Bearer ${token()}` },
@@ -56,7 +56,7 @@ export const toggleTodo = createAsyncThunk('todos/toggleTodo', async ({ id, comp
 // Delete a todo
 export const deleteTodo = createAsyncThunk('todos/deleteTodo', async (id, thunkAPI) => {
   try {
-    await axios.delete(`${process.env.REACT_APP_API_URL}/todos/${id}`, {
+    await axios.delete(`${import.meta.env.VITE_API_URL}/todos/${id}`, {
       headers: { Authorization: `Bearer ${token()}` },
     });
     return id;
@@ -69,7 +69,7 @@ export const deleteTodo = createAsyncThunk('todos/deleteTodo', async (id, thunkA
 export const updateTodo = createAsyncThunk('todos/updateTodo', async ({ id, text }, thunkAPI) => {
   try {
     const res = await axios.put(
-      `${process.env.REACT_APP_API_URL}/todos/${id}`,
+      `${import.meta.env.VITE_API_URL}/todos/${id}`,
       { text },
       {
         headers: { Authorization: `Bearer ${token()}` },
