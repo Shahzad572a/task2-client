@@ -1,4 +1,5 @@
  
+.auth-box,
 .todo-wrapper {
   background: #ffffff;
   border-radius: 20px;
@@ -177,7 +178,7 @@
     transform: translateY(0);
   }
 }
- 
+/* =============== COMPACT INLINE INPUT + BUTTON =============== */
 .input-group {
   display: flex;
   width: 100%;

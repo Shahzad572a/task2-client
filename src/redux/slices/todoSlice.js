@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const token = () => localStorage.getItem('token');
-const API = process.env.REACT_APP_API_URL;
 
 const initialState = {
   todos: [],
@@ -10,9 +9,10 @@ const initialState = {
   error: null,
 };
 
+// Fetch all todos
 export const fetchTodos = createAsyncThunk('todos/fetchTodos', async (_, thunkAPI) => {
   try {
-    const res = await axios.get(`${API}/todos`, {
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/todos`, {
       headers: { Authorization: `Bearer ${token()}` },
     });
     return res.data;
@@ -21,12 +21,15 @@ export const fetchTodos = createAsyncThunk('todos/fetchTodos', async (_, thunkAP
   }
 });
 
+// Add a new todo
 export const addTodo = createAsyncThunk('todos/addTodo', async (text, thunkAPI) => {
   try {
     const res = await axios.post(
-      `${API}/todos`,
+      `${process.env.REACT_APP_API_URL}/todos`,
       { text },
-      { headers: { Authorization: `Bearer ${token()}` } }
+      {
+        headers: { Authorization: `Bearer ${token()}` },
+      }
     );
     return res.data;
   } catch (err) {
@@ -34,12 +37,15 @@ export const addTodo = createAsyncThunk('todos/addTodo', async (text, thunkAPI) 
   }
 });
 
+// Toggle a todo's completed state
 export const toggleTodo = createAsyncThunk('todos/toggleTodo', async ({ id, completed }, thunkAPI) => {
   try {
     const res = await axios.put(
-      `${API}/todos/${id}`,
+      `${process.env.REACT_APP_API_URL}/todos/${id}`,
       { completed },
-      { headers: { Authorization: `Bearer ${token()}` } }
+      {
+        headers: { Authorization: `Bearer ${token()}` },
+      }
     );
     return res.data;
   } catch (err) {
@@ -47,9 +53,10 @@ export const toggleTodo = createAsyncThunk('todos/toggleTodo', async ({ id, comp
   }
 });
 
+// Delete a todo
 export const deleteTodo = createAsyncThunk('todos/deleteTodo', async (id, thunkAPI) => {
   try {
-    await axios.delete(`${API}/todos/${id}`, {
+    await axios.delete(`${process.env.REACT_APP_API_URL}/todos/${id}`, {
       headers: { Authorization: `Bearer ${token()}` },
     });
     return id;
@@ -58,12 +65,15 @@ export const deleteTodo = createAsyncThunk('todos/deleteTodo', async (id, thunkA
   }
 });
 
+// Update a todo's text
 export const updateTodo = createAsyncThunk('todos/updateTodo', async ({ id, text }, thunkAPI) => {
   try {
     const res = await axios.put(
-      `${API}/todos/${id}`,
+      `${process.env.REACT_APP_API_URL}/todos/${id}`,
       { text },
-      { headers: { Authorization: `Bearer ${token()}` } }
+      {
+        headers: { Authorization: `Bearer ${token()}` },
+      }
     );
     return res.data;
   } catch (err) {
@@ -71,6 +81,7 @@ export const updateTodo = createAsyncThunk('todos/updateTodo', async ({ id, text
   }
 });
 
+// Slice
 const todoSlice = createSlice({
   name: 'todos',
   initialState,
