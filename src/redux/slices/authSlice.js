@@ -10,25 +10,24 @@ const initialState = {
 };
 
 export const login = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
-    try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', credentials);
-      localStorage.setItem(tokenKey, res.data.token);
-      return res.data.token;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.response?.data?.msg || 'Login failed');
-    }
-  });
-  
-  export const signup = createAsyncThunk('auth/signup', async (credentials, thunkAPI) => {
-    try {
-      const res = await axios.post('http://localhost:5000/api/auth/signup', credentials);
-      localStorage.setItem(tokenKey, res.data.token);
-      return res.data.token;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.response?.data?.msg || 'Signup failed');
-    }
-  });
-  
+  try {
+    const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, credentials);
+    localStorage.setItem(tokenKey, res.data.token);
+    return res.data.token;
+  } catch (err) {
+    return thunkAPI.rejectWithValue(err.response?.data?.msg || 'Login failed');
+  }
+});
+
+export const signup = createAsyncThunk('auth/signup', async (credentials, thunkAPI) => {
+  try {
+    const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/signup`, credentials);
+    localStorage.setItem(tokenKey, res.data.token);
+    return res.data.token;
+  } catch (err) {
+    return thunkAPI.rejectWithValue(err.response?.data?.msg || 'Signup failed');
+  }
+});
 
 const authSlice = createSlice({
   name: 'auth',

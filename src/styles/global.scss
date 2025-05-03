@@ -1,7 +1,4 @@
-/* =============== FORM ENHANCEMENTS =============== */
-
-/* Auth & Todo wrapper (card) */
-.auth-box,
+ 
 .todo-wrapper {
   background: #ffffff;
   border-radius: 20px;
@@ -18,7 +15,7 @@
   transform: scale(1.01);
 }
 
-/* Headings */
+ 
 .auth-form h2,
 .todo-title {
   font-size: 2rem;
@@ -28,7 +25,7 @@
   text-align: center;
 }
 
-/* Input fields with glow on focus */
+ 
 .auth-form input,
 .todo-form input,
 .edit-input {
@@ -180,7 +177,7 @@
     transform: translateY(0);
   }
 }
-/* =============== COMPACT INLINE INPUT + BUTTON =============== */
+ 
 .input-group {
   display: flex;
   width: 100%;

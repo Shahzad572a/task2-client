@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const token = () => localStorage.getItem('token');
+const API = process.env.REACT_APP_API_URL;
 
 const initialState = {
   todos: [],
@@ -11,7 +12,7 @@ const initialState = {
 
 export const fetchTodos = createAsyncThunk('todos/fetchTodos', async (_, thunkAPI) => {
   try {
-    const res = await axios.get(`http://localhost:5000/api/todos`, {
+    const res = await axios.get(`${API}/todos`, {
       headers: { Authorization: `Bearer ${token()}` },
     });
     return res.data;
@@ -23,7 +24,7 @@ export const fetchTodos = createAsyncThunk('todos/fetchTodos', async (_, thunkAP
 export const addTodo = createAsyncThunk('todos/addTodo', async (text, thunkAPI) => {
   try {
     const res = await axios.post(
-      `http://localhost:5000/api/todos`,
+      `${API}/todos`,
       { text },
       { headers: { Authorization: `Bearer ${token()}` } }
     );
@@ -36,7 +37,7 @@ export const addTodo = createAsyncThunk('todos/addTodo', async (text, thunkAPI) 
 export const toggleTodo = createAsyncThunk('todos/toggleTodo', async ({ id, completed }, thunkAPI) => {
   try {
     const res = await axios.put(
-      `http://localhost:5000/api/todos/${id}`,
+      `${API}/todos/${id}`,
       { completed },
       { headers: { Authorization: `Bearer ${token()}` } }
     );
@@ -48,7 +49,7 @@ export const toggleTodo = createAsyncThunk('todos/toggleTodo', async ({ id, comp
 
 export const deleteTodo = createAsyncThunk('todos/deleteTodo', async (id, thunkAPI) => {
   try {
-    await axios.delete(`http://localhost:5000/api/todos/${id}`, {
+    await axios.delete(`${API}/todos/${id}`, {
       headers: { Authorization: `Bearer ${token()}` },
     });
     return id;
@@ -60,13 +61,13 @@ export const deleteTodo = createAsyncThunk('todos/deleteTodo', async (id, thunkA
 export const updateTodo = createAsyncThunk('todos/updateTodo', async ({ id, text }, thunkAPI) => {
   try {
     const res = await axios.put(
-      `http://localhost:5000/api/todos/${id}`,
+      `${API}/todos/${id}`,
       { text },
       { headers: { Authorization: `Bearer ${token()}` } }
     );
     return res.data;
   } catch (err) {
-    return thunkAPI.rejectWithValue(err.response?.data?.msg || 'Failed to update todo text');
+    return thunkAPI.rejectWithValue(err.response?.data?.msg || 'Failed to update todo');
   }
 });
 
